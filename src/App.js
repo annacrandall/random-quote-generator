@@ -1,50 +1,41 @@
-import React, { Component } from "react";
-import axios from 'axios'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./index.css";
+import Button from "./Button";
+import twitter from "./twitter-logo.svg"; 
 
 
-class RandomQuote extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      quote: "",
-      author: ""
-    }
-  }
 
-  componentDidMount() {
-    this.getQuote()
-  }
 
-  getQuote() {
-    let quoteSource = "https://www.breakingbadapi.com/api/quotes"
+const RandomQuote = () => {
+  const [quote, setQuote] = useState("");
+  const [author, setAuthor] = useState("");
 
-    axios.get(quoteSource).then(response => {
-      let data = response.data.quotes
-      let quoteSelection = Math.floor(Math.random() * data.length)
-      let randomQuote = data[quoteSelection]
-
-      this.setState({
-        quote: randomQuote["quote"], 
-        author: randomQuote["author"]
-      })
+  const getQuote = () => {
+    axios.get("https://www.breakingbadapi.com/api/quote/random").then(({ data }) => {
+      let randomQuote = data[0]
+      setQuote(randomQuote.quote);
+      setAuthor(randomQuote.author);
     })
-}
-getNewQuote = () => {
-  this.getQuote()
-}
-render() {
-  const {quote, author} = this.state
+  }
+
+  useEffect(getQuote, []);
   return (
-    <div className="border-2 border-black">
-      <header className="justify-center">Breaking Bad Quote App</header>
-      <div id="quote-box">
-        <div id="text"><p>{quote}</p></div>
-        <div id="author"><p>{author}</p></div>
-        <button className="border-2 border-pink" onClick={this.getNewQuote}>Click me!</button>
+    <div className="flex items-center flex-col h-screen justify-center">
+      <h1>Breaking Bad Quote App</h1>
+      <div className="flex items-center flex-col" id="quote-box">
+        <div id="text">
+          <p>{quote}</p>
+        </div>
+        <div id="author">
+          <p>{author}</p>
+        </div>
+
+        <Button id="new-quote" onClick={getQuote}><h1>New Quote</h1></Button>
+        <Button id="tweet-quote" href="https://twitter.com/intent/tweet"><img src={twitter}/></Button>
       </div>
     </div>
   );
-}
 }
 
 export default RandomQuote;
