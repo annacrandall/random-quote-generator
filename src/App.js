@@ -32,7 +32,7 @@ const RandomQuote = () => {
         </div>
 
         <Button id="new-quote" onClick={getQuote}><h1>New Quote</h1></Button>
-        <Button id="tweet-quote" href="https://twitter.com/intent/tweet"><img src={twitter}/></Button>
+        <Button id="tweet-quote" href="https://twitter.com/intent/tweet"><img alt="tweet this quote" src={twitter}/></Button>
       </div>
     </div>
   );
