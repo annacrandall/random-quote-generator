@@ -1,5 +1,5 @@
 ## Deploy Preview 
-[https://main--papaya-flan-33cd96.netlify.app/](https://main--papaya-flan-33cd96.netlify.app/) 
+[Click here](https://breaking-bad-quote-gen.netlify.app) 
 ## Available Scripts
 
 In the project directory, you can run:
